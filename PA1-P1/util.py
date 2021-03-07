@@ -7,5 +7,4 @@
 
 # Add any utility functions here
 
-# This is deleted comment added from GitHub (by Nithin)
-
+# Comment by Nithin
