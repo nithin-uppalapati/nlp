@@ -9,7 +9,7 @@ class StopwordRemoval():
 
 	def fromList(self, text):
 		"""
-		Sentence Segmentation using the Punkt Tokenizer
+		StopWord Removal from a sentence which is segmented from a text.
 
 		Parameters
 		----------
@@ -24,9 +24,13 @@ class StopwordRemoval():
 			representing a sentence with stopwords removed
 		"""
 
-		stopwordRemovedText = None
+		# stopwordRemovedText = None
 
 		#Fill in code here
+
+		for i in text:
+			
+
 
 		return stopwordRemovedText
 
