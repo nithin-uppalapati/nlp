@@ -22,31 +22,24 @@ class SentenceSegmentation():
 			A list of strings where each string is a single sentence
 		"""
 		
-		# Adding a tag to period ---> TAG: <\nk> (making it as .<\nk>)
+		segmentedText = None
+
+
 		self.text=text
 		[cnt,k]=[0,0]
 		lst=[]
-		# var=text.replace('\n',' ')
+		#### var=text.replace('\n',' ')
 		for i in text:
-			# implement a for loop  extracting in indices of periods
-			s={".","?","!"}
+									# implement a for loop for tracking indices of punctuation marks and appending the sentence accordingly
+			s={".","?","!"} 		# Set of defined punctuation marks which results in end of a sentence
 			for j in i:
 				if j in s:
-					senten=text[k:cnt+1].strip()
+					senten=text[k:cnt+1].strip() # Segmenting the sentence from a given text
 					lst.append(senten)
 					k=cnt+1
 			cnt=cnt+1
 
-
-
-
-
-
-		# segmentedText = None
-
-		return segmentedText
-
-		#Fill in code here
+		segmentedText=lst
 
 		return segmentedText
 
@@ -66,11 +59,14 @@ class SentenceSegmentation():
 		Returns
 		-------
 		list
-			A list of strings where each strin is a single sentence
+			A list of strings where each string is a single sentence
 		"""
-
 		segmentedText = None
 
-		#Fill in code here
+
+		self.text=text
+		sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
+		segmentedText=sent_detector.tokenize(text.strip())
+
 		
 		return segmentedText
