@@ -1,5 +1,5 @@
 from util import *
-
+from nltk.corpus import stopwords
 # Add your import statements here
 
 
@@ -23,12 +23,14 @@ class StopwordRemoval():
 			A list of lists where each sub-list is a sequence of tokens
 			representing a sentence with stopwords removed
 		"""
-
-		# stopwordRemovedText = None
+                stopwords = set(stopwords.words('english'))
+		stopwordRemovedText = []
 
 		#Fill in code here
 
 		for i in text:
+			if i not in stopwords:
+				stopwordRemovedText.append(i)
 			
 
 
