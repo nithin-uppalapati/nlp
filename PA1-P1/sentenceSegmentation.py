@@ -22,7 +22,7 @@ class SentenceSegmentation():
 			A list of strings where each string is a single sentence
 		"""
 		
-		segmentedText = None
+		# segmentedText = None
 
 
 		self.text=text
@@ -61,7 +61,7 @@ class SentenceSegmentation():
 		list
 			A list of strings where each string is a single sentence
 		"""
-		segmentedText = None
+		# segmentedText = None
 
 
 		self.text=text

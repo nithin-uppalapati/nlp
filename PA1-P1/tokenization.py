@@ -25,7 +25,12 @@ class Tokenization():
 		tokenizedText = None
 
 		#Fill in code here
-
+		lst=[]
+		for i in text:
+			i.replace("\n"," ")
+			lst.append(i.split(" "))
+		
+		tokenizedText=lst
 		return tokenizedText
 
 
