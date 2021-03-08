@@ -21,10 +21,30 @@ class SentenceSegmentation():
 		list
 			A list of strings where each string is a single sentence
 		"""
-
 		
+		# Adding a tag to period ---> TAG: <\nk> (making it as .<\nk>)
+		self.text=text
+		[cnt,k]=[0,0]
+		lst=[]
+		# var=text.replace('\n',' ')
+		for i in text:
+			# implement a for loop  extracting in indices of periods
+			s={".","?","!"}
+			for j in i:
+				if j in s:
+					senten=text[k:cnt+1].strip()
+					lst.append(senten)
+					k=cnt+1
+			cnt=cnt+1
 
-		segmentedText = None
+
+
+
+
+
+		# segmentedText = None
+
+		return segmentedText
 
 		#Fill in code here
 
