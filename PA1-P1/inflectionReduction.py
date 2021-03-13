@@ -33,7 +33,7 @@ class InflectionReduction:
 		temp=text.copy()
 		for i in range(0,len(text)):
 			for j in range(0,len(text[i])):
-				temp[i][j]=wrntl.lemmatize(j)
+				temp[i][j]=wrntl.lemmatize(text[i][j])
 		
 		reducedText = temp.copy()
 		
