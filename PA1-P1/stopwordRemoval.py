@@ -1,5 +1,5 @@
 from util import *
-from nltk.corpus import stopwords
+# from nltk.corpus import stopwords
 # Add your import statements here
 
 
