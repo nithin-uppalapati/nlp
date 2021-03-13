@@ -23,7 +23,7 @@ class StopwordRemoval():
 			A list of lists where each sub-list is a sequence of tokens
 			representing a sentence with stopwords removed
 		"""
-                stopwords = set(stopwords.words('english'))
+		stopwords = set(stopwords.words('english'))
 		stopwordRemovedText = []
 
 		#Fill in code here
@@ -32,8 +32,7 @@ class StopwordRemoval():
 			if i not in stopwords:
 				stopwordRemovedText.append(i)
 			
-
-
+			
 		return stopwordRemovedText
 
 
