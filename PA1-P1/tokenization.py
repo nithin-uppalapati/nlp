@@ -50,9 +50,9 @@ class Tokenization():
 			A list of lists where each sub-list is a sequence of tokens
 		"""
 		l = []
-                for i in text:
+		for i in text:
 			w = word_tokenize(i)
 			l.append(w)
-	  	
+			
 		tokenizedText=l
 		return tokenizedText
