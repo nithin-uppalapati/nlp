@@ -29,10 +29,9 @@ class SentenceSegmentation():
 		[cnt,k]=[0,0]
 		lst=[]
 		#### var=text.replace('\n',' ')
+		s={".","?","!"} 		# Set of defined punctuation marks which results in end of a sentence
 		for i in text:
-									# implement a for loop for tracking indices of punctuation marks and appending the sentence accordingly
-			s={".","?","!"} 		# Set of defined punctuation marks which results in end of a sentence
-			# for j in i:
+			# implement a for loop for tracking indices of punctuation marks and appending the sentence accordingly
 			if i in s:
 				senten=text[k:cnt+1].strip() # Segmenting the sentence from a given text
 				lst.append(senten)
