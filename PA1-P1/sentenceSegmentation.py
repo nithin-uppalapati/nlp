@@ -25,18 +25,18 @@ class SentenceSegmentation():
 		# segmentedText = None
 
 
-		self.text=text
+		# self.text=text
 		[cnt,k]=[0,0]
 		lst=[]
 		#### var=text.replace('\n',' ')
 		for i in text:
 									# implement a for loop for tracking indices of punctuation marks and appending the sentence accordingly
 			s={".","?","!"} 		# Set of defined punctuation marks which results in end of a sentence
-			for j in i:
-				if j in s:
-					senten=text[k:cnt+1].strip() # Segmenting the sentence from a given text
-					lst.append(senten)
-					k=cnt+1
+			# for j in i:
+			if i in s:
+				senten=text[k:cnt+1].strip() # Segmenting the sentence from a given text
+				lst.append(senten)
+				k=cnt+1
 			cnt=cnt+1
 
 		segmentedText=lst
@@ -64,7 +64,7 @@ class SentenceSegmentation():
 		# segmentedText = None
 
 
-		self.text=text
+		# self.text=text
 		sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
 		segmentedText=sent_detector.tokenize(text.strip())
 
