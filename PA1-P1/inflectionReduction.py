@@ -27,8 +27,9 @@ class InflectionReduction:
 		# reducedText = None
 
 		#Fill in code here
+		# Performing lemmatization to reduce inflection.
 		wrntl=WordNetLemmatizer()
-		ps=PorterStemmer()
+		# ps=PorterStemmer()
 
 		temp=text.copy()
 		for i in range(0,len(text)):
