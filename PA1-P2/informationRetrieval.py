@@ -29,7 +29,7 @@ class InformationRetrieval():
 
 		index = None
 
-		#Fill in code here ####hello
+		#Fill in code here
 
 		self.index = index
 
