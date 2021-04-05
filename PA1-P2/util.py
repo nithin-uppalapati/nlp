@@ -1,5 +1,5 @@
 # Add your import statements here
-
+import numpy as np
 import nltk.data
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize

@@ -31,7 +31,70 @@ class InformationRetrieval():
 
 		#Fill in code here
 
+		t_collec=[]
+		t_dict={}
+		docIDs_dict={}
+		cnt=0
+		print(docs[0])
+		for i in docs:
+			temp=[]
+			for j in i:
+				# tempr=j.strip('.')	## ASSUMPTION, SENTENCES DOES NOT END WITH PUNCTUATION MARKS AND DOES NOT CONTAIN ANY PUNCT MARKS
+				# print(i)
+				# tempr=j.lower() #tempr=tempr.lower()
+				# tempr=tempr.split()
+				temp.extend(j) #temp.extend(tempr)
+			docIDs_dict.update({docIDs[cnt]:[i,temp]})
+			t_collec.extend(temp)
+			cnt+=1
+
+# t_collec is collection of all terms in the corpus.
+
+		t_collec=list(set(t_collec))		## All terms in the entire corpus. this also forms the vector space basis (ORDER).
+		for i in t_collec:
+			tf=np.zeros(len(docIDs))		## tf of term i in every doc.
+			cnt=0
+			for j in docIDs:
+				tf[cnt]=docIDs_dict[j][1].count(i)
+				cnt+=1
+			IDF=np.log10(len(docIDs)/len(np.where(tf!=0)[0]))
+			t_dict.update({i:[tf, IDF, IDF*tf] }) # the ordering in "a*IDF" are according to docIDs order. each element corresponds to tf*IDF
+			# For IDF find the no. of zeros in the a and then calc. log accordingly and multiply back to 
+
+		doc_vecs=np.zeros([len(docIDs),len(t_collec)])
+		cnt_docs=0## goes from 0 to len(docIDs)
+		for j in doc_vecs:
+			cnt_t=0   ## goes from 0 to len(t_collec)
+			for i in t_collec:
+				j[cnt_t]=t_dict[i][2][cnt_docs]
+				cnt_t+=1
+			cnt_docs+=1
+
+		cnt=0
+		for i in docIDs:
+			docIDs_dict[i].append(doc_vecs[cnt])
+			cnt+=1
+
+		index = [t_collec, t_dict, docIDs_dict, docIDs]
+
 		self.index = index
+
+
+		# IDEA:
+		# no. of docs =n
+		# create empty list of n lists
+		# append them with bag of terms in resp. docs and count the frequency of terms.
+		# also cal IDF of the terms.
+		# Create a term doc matrix.
+		# map the order to the IDs (list indices)
+		# >>> d=[[]]*3
+		# >>> d
+		# [[], [], []]
+
+		# Additional points:
+		# 1.strip periods
+		# 2.lowercase terms
+
 
 
 	def rank(self, queries):
@@ -55,7 +118,55 @@ class InformationRetrieval():
 		doc_IDs_ordered = []
 
 		#Fill in code here
-	
+
+		docIDs=self.index[3]
+		q_tot=len(queries)
+
+		q_collec=[]  # q_collec is list of tokenised queries [ ["collection", "of", "query_1" , "words"], [], ... ]
+		qt_dict={}
+		for i in range(q_tot): #queries
+			temp=[]
+			for j in queries[i]: #i   ### error is coming ass i is list, and lists cannot be key...
+				# tempr=j.strip('.')
+				# print(i)
+				# tempr=tempr.lower()
+				# tempr=tempr.split()
+				temp.extend(j) #temp.extend(tempr)
+			q_collec.append(temp)
+			qt_dict.update({i:[temp]})
+		
+		docIDs_dict = self.index[2]
+		t_dict  =self.index[1]
+		t_collec=self.index[0]		## All terms in the entire corpus. this also forms the vector space basis (ORDER).
+
+		# q_vecs_lst=[]
+		# q_vec=np.zeros(len(t_collec)) ## Append q_vec to dict.
+
+		for j in range(q_tot): #queries
+			q_vec=np.zeros(len(t_collec)) ## Append q_vec to dict.
+			cnt_qvec=0
+			cnt_qcollec=0
+			for i in t_collec:
+				q_vec[cnt_qvec]= (q_collec[cnt_qcollec].count(i)) * t_dict[i][1]
+				cnt_qvec+=1
+			qt_dict[j].append(q_vec)
+			cnt_qcollec+=1
+		
+		
+		for i in range(q_tot): #queries
+			# Capture the IDs of docs while calc the dot prods and ordering the dots should order the IDs...
+			temp_res=np.zeros(len(docIDs))
+			cnt=0
+			for j in docIDs:
+				temp_res[cnt]=np.dot(qt_dict[i][1], docIDs_dict[j][2])
+				cnt+=1
+			order=temp_res.argsort()
+			order=order[::-1]
+			temp_lst=[]
+			for k in order:
+				temp_lst.append(docIDs[k])
+			doc_IDs_ordered.append(temp_lst)
+
 		return doc_IDs_ordered
 
 
