@@ -204,11 +204,11 @@ class Evaluation():
 
 		fscore = -1
 
-		#Fill in code here
-		precision=self.queryPrecision(query_doc_IDs_ordered, query_id, true_doc_IDs, k)
-		recall	 =self.queryRecall(query_doc_IDs_ordered, query_id, true_doc_IDs, k)
-		fscore = (1/precision) + (1/recall)
-		fscore=1/fscore
+		# #Fill in code here
+		# precision=self.queryPrecision(query_doc_IDs_ordered, query_id, true_doc_IDs, k)
+		# recall	 =self.queryRecall(query_doc_IDs_ordered, query_id, true_doc_IDs, k)
+		# fscore = (1/precision) + (1/recall)
+		# fscore=1/fscore
 		return fscore
 
 
@@ -240,6 +240,22 @@ class Evaluation():
 		meanFscore = -1
 
 		#Fill in code here
+		# q_rel_docs={} ## {qID : List of Rel Docs}
+		# for i in query_ids:
+		# 	q_rel_docs.update({i:[]})
+
+		# sum_fsc=0
+		# for i in qrels:
+		# 	if int(i["query_num"]) in query_ids:
+		# 		# temp = i["query_num"] - 1
+		# 		q_rel_docs[ int(i["query_num"]) ].append( int(i["id"]) )
+		
+		# cnt=0
+		# for i in query_ids:
+		# 	sum_fsc = sum_fsc + self.queryFscore(doc_IDs_ordered[cnt], i-1, q_rel_docs[i], k)
+		# 	cnt+=1
+
+		# meanFscore = sum_fsc/len(query_ids)
 
 		return meanFscore
 	
@@ -256,8 +272,8 @@ class Evaluation():
 			their predicted order of relevance to a query
 		arg2 : int
 			The ID of the query in question
-		arg3 : list
-			The list of IDs of documents relevant to the query (ground truth)
+		arg3 : list of list
+			The sub-list is [IDs, relevance] of documents relevant to the query (ground truth)
 		arg4 : int
 			The k value
 
@@ -270,6 +286,27 @@ class Evaluation():
 		nDCG = -1
 
 		#Fill in code here
+
+		# DCG=0
+		# iDCG=0
+		# docs_ordered_with_relevance={}
+		# relevance=[]
+
+		# for i in range(k):
+		# 	for j in range(len(true_doc_IDs[0])):
+		# 		if query_doc_IDs_ordered[i]==true_doc_IDs[0][j]:
+		# 			docs_ordered_with_relevance.update({query_doc_IDs_ordered[i]:true_doc_IDs[1][j]})
+		# 			relevance.append(true_doc_IDs[1][j])
+
+		# relevance=np.array(relevance)
+		# relevance=relevance.sort()
+		# relevance=relevance[::-1]
+
+		# for i in range(k):
+		# 	DCG = DCG +  ( (docs_ordered_with_relevance[query_doc_IDs_ordered[i]]) / np.log2(k+2) )
+		# 	iDCG=iDCG +  ( relevance[i] / np.log2(k+2) )
+		
+		# nDCG = DCG/iDCG
 
 		return nDCG
 
@@ -301,7 +338,22 @@ class Evaluation():
 
 		meanNDCG = -1
 
-		#Fill in code here
+
+		# #Fill in code here
+		# sumnDCG = 0
+		# q_rel_docs={} ## {qID : List of Rel Docs}
+		# for i in query_ids:
+		# 	q_rel_docs.update({i:[[],[]]})
+		# for i in qrels:
+		# 	if int(i["query_num"]) in query_ids:
+		# 		# temp = i["query_num"] - 1
+		# 		q_rel_docs[int(i["query_num"])][0].append( int(i["id"]) )
+		# 		q_rel_docs[int(i["query_num"])][1].append( i["position"] )
+
+		# for i in range(len(query_ids)):
+		# 	sumnDCG = sumnDCG + self.queryNDCG(doc_IDs_ordered[i], query_ids[i], q_rel_docs[i] , k)
+		
+		# meanNDCG = sumnDCG / len(query_ids)
 
 		return meanNDCG
 
