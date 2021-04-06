@@ -64,10 +64,13 @@ class InformationRetrieval():
 		for i in t_collec:
 			tf=np.zeros(len(docIDs))		## tf of term i in every doc.
 			cnt=0
+			c = 0
 			for j in docIDs:
 				tf[cnt]=docIDs_dict[j][1].count(i)
+				if tf[cnt] != 0:
+					c+=1
 				cnt+=1
-			IDF=np.log10( len(docIDs) / len(np.where(tf!=0)[0]) )
+			IDF=np.log10( len(docIDs) /c)
 			temp_vec=IDF*tf
 			t_dict.update({i:[tf, IDF, temp_vec] }) # the ordering in "a*IDF" are according to docIDs order. each element corresponds to tf*IDF
 			# For IDF find the no. of zeros in the a and then calc. log accordingly and multiply back to
