@@ -35,7 +35,7 @@ class InformationRetrieval():
 		t_dict={}
 		docIDs_dict={}
 		cnt=0
-		print(docs[0])
+		# print(docs[0])
 		for i in docs:
 			temp=[]
 			for j in i:
@@ -166,7 +166,7 @@ class InformationRetrieval():
 			for k in order:
 				temp_lst.append(docIDs[k])
 			doc_IDs_ordered.append(temp_lst)
-
+		# print(doc_IDs_ordered[0])
 		return doc_IDs_ordered
 
 

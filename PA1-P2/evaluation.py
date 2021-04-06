@@ -31,9 +31,16 @@ class Evaluation():
 		"""
 
 		precision = -1
-
+		# print(query_doc_IDs_ordered)
 		#Fill in code here
-		
+		cnt=0
+		for i in range(k):
+			if query_doc_IDs_ordered[i] in true_doc_IDs:
+				cnt+=1
+
+		precision = cnt/k			# intersec / retrieved
+		# print(cnt)
+		# print(k)
 
 		return precision
 
@@ -66,6 +73,23 @@ class Evaluation():
 		meanPrecision = -1
 
 		#Fill in code here
+		
+		q_rel_docs={} ## {qID : List of Rel Docs}
+		for i in query_ids:
+			q_rel_docs.update({i:[]})
+
+		sum_pres=0
+		for i in qrels:
+			if int(i["query_num"]) in query_ids:
+				# temp = i["query_num"] - 1
+				q_rel_docs[ int(i["query_num"]) ].append( int(i["id"]) )
+		
+		cnt=0
+		for i in query_ids:
+			sum_pres = sum_pres + self.queryPrecision(doc_IDs_ordered[cnt], i-1, q_rel_docs[i], k)
+			cnt+=1
+
+		meanPrecision = sum_pres/len(query_ids)
 
 		return meanPrecision
 
@@ -96,6 +120,12 @@ class Evaluation():
 		recall = -1
 
 		#Fill in code here
+		cnt=0
+		for i in range(k):
+			if query_doc_IDs_ordered[i] in true_doc_IDs:
+				cnt+=1
+
+		recall = cnt/len(true_doc_IDs)			# intersec / relevant
 
 		return recall
 
@@ -129,6 +159,23 @@ class Evaluation():
 
 		#Fill in code here
 
+		q_rel_docs={} ## {qID : List of Rel Docs}
+		for i in query_ids:
+			q_rel_docs.update({i:[]})
+
+		sum_rel=0
+		for i in qrels:
+			if int(i["query_num"]) in query_ids:
+				# temp = i["query_num"] - 1
+				q_rel_docs[ int(i["query_num"]) ].append( int(i["id"]) )
+		
+		cnt=0
+		for i in query_ids:
+			sum_rel = sum_rel + self.queryRecall(doc_IDs_ordered[cnt], i-1, q_rel_docs[i], k)
+			cnt+=1
+
+		meanRecall = sum_rel/len(query_ids)
+
 		return meanRecall
 
 
@@ -158,7 +205,10 @@ class Evaluation():
 		fscore = -1
 
 		#Fill in code here
-
+		precision=self.queryPrecision(query_doc_IDs_ordered, query_id, true_doc_IDs, k)
+		recall	 =self.queryRecall(query_doc_IDs_ordered, query_id, true_doc_IDs, k)
+		fscore = (1/precision) + (1/recall)
+		fscore=1/fscore
 		return fscore
 
 
