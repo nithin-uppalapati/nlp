@@ -120,23 +120,6 @@ class InformationRetrieval():
 		self.index = index
 
 
-		# IDEA:
-		# no. of docs =n
-		# create empty list of n lists
-		# append them with bag of terms in resp. docs and count the frequency of terms.
-		# also cal IDF of the terms.
-		# Create a term doc matrix.
-		# map the order to the IDs (list indices)
-		# >>> d=[[]]*3
-		# >>> d
-		# [[], [], []]
-
-		# Additional points:
-		# 1.strip periods
-		# 2.lowercase terms
-
-
-
 	def rank(self, queries):
 		"""
 		Rank the documents according to relevance for each query
