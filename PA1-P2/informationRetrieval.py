@@ -70,11 +70,8 @@ class InformationRetrieval():
 				if tf[cnt] != 0:
 					c+=1
 				cnt+=1
-<<<<<<< HEAD
 			IDF=np.log10( len(docIDs) / np.count_nonzero(tf) )
-=======
-			IDF=np.log10( len(docIDs) /c)
->>>>>>> fd5a95857893748b6931325f758e6c82a88cb11a
+			# IDF=np.log10( len(docIDs) / c )
 			temp_vec=IDF*tf
 			tfidf[i]=temp_vec				####added
 			t_dict.update({i:[tf, IDF, temp_vec] }) # the ordering in "a*IDF" are according to docIDs order. each element corresponds to tf*IDF
