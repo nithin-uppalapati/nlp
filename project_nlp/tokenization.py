@@ -21,7 +21,7 @@ class Tokenization():
 		list
 			A list of lists where each sub-list is a sequence of tokens
 		"""
-
+# ---------------------------------------
 		tokenizedText = None
 
 		#Fill in code here
@@ -32,6 +32,8 @@ class Tokenization():
 		
 		tokenizedText=lst
 		return tokenizedText
+# ---------------------------------------
+
 
 
 
@@ -55,4 +57,5 @@ class Tokenization():
 			l.append(w)
 			
 		tokenizedText=l
+		# print(tokenizedText)
 		return tokenizedText
