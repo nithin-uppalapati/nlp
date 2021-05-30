@@ -296,6 +296,9 @@ MAP, nDCG @ 10 : 0.6569899848828422, 0.6821936638765895
 		TO DO
 		1. remove commas and other shit in tokenization
 		2. think of other inefficiencies in the system.
+		3. Implement perfect LSA
+		4. Optimize the hyperparameter - k in lsa
+		5. how to remove backslash from text!?
 
 
 '''
