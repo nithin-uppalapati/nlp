@@ -92,9 +92,24 @@ class InformationRetrieval():
 
 		
 		# doc_vecs = lsa_doc_vecs_list.copy()
+		############################################## query expanssion
+		syn_collec = []   # 8000.... len(t_collec)
+		for i in t_collec:
+			if len(wordnet.synsets(i)):
+				syn_collec.append(wordnet.synsets(i)[0])
+			else:
+				syn_collec.append(0)
+
+		QE = np.diag(np.ones(len(t_collec)))
+		for i in range(len(t_collec)):
+			if (syn_collec[i]):
+				for j in range(len(t_collec)):
+					if (syn_collec[j]):
+						QE[i][j] = syn_collec[i].wup_similarity(syn_collec[j])
+		############################################## query expanssion
 		
 
-		index = [t_collec, t_dict, docIDs_dict, docIDs, doc_vecs]
+		index = [t_collec, t_dict, docIDs_dict, docIDs, doc_vecs, QE]
 		self.index = index
 		# 
 		# 
@@ -128,6 +143,7 @@ class InformationRetrieval():
 		#Fill in code here
 		# lsa_doc_vecs_list = self.index[5]
 		doc_vecs = self.index[4]       #changing this to 5, originally it is 4
+		QE = self.index[5]
 		docIDs=self.index[3]
 		docIDs_dict = self.index[2]
 		t_dict  =self.index[1]
@@ -214,13 +230,11 @@ class InformationRetrieval():
 		# print(print_list)
 
 		################# k=?
-		k=250
+		k=10
 
 		A = np.matmul(self.U[:,0:k], np.diag(self.S[0:k]))
 		A = np.matmul(A, self.Vt[0:k,:])
-		# print(np.shape(A))
-		for i in range(len(self.S)):
-			print(self.S[i])
+		print(np.shape(A))
 		return A.T
 
 		# sourceFile = open('demo_print.txt', 'w')
@@ -244,7 +258,8 @@ class InformationRetrieval():
 			cnt=0
 			for str2 in t_collec:
 				len2 = len(str2)
-				DP = [[0 for i in range(len1 + 1)] for j in range(2)]
+				DP = [[0 for i in range(len1 + 1)]
+						for j in range(2)];
 
 				for i in range(0, len1 + 1):
 					DP[0][i] = i
@@ -322,7 +337,6 @@ MAP, nDCG @ 10 : 0.6569899848828422, 0.6821936638765895
 			a. Using Wordnet similarity scores
 			b. Using Semantic Analysis
 		8. Try removing more numbers and symbols, and then see the results
-		9. Plot P vs R curves for various implementations
 
 '''
 
